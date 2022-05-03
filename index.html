@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Temprepro_2.js"></script>
+        <script src="data/pop2020Homens_3.js"></script>
+        <script src="data/Feira_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-12.285982869215832,-38.97459653181904],[-12.263573146993583,-38.93030541088469]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        map.createPane('pane_GoogleRoad_1');
+        map.getPane('pane_GoogleRoad_1').style.zIndex = 401;
+        var layer_GoogleRoad_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleRoad_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleRoad_1;
+        map.addLayer(layer_GoogleRoad_1);
+        function pop_Temprepro_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Temperatura</th>\
+                        <td>' + (feature.properties['TEMP'] !== null ? autolinker.link(feature.properties['TEMP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Temprepro_2_0(feature) {
+            if (feature.properties['TEMP'] >= 25.700000 && feature.properties['TEMP'] <= 27.500000 ) {
+                return {
+                pane: 'pane_Temprepro_2',
+                opacity: 1,
+                color: 'rgba(35,251,244,0.7)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,0.7)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['TEMP'] >= 27.500000 && feature.properties['TEMP'] <= 28.600000 ) {
+                return {
+                pane: 'pane_Temprepro_2',
+                opacity: 1,
+                color: 'rgba(35,251,244,0.7)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,0.7)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['TEMP'] >= 28.600000 && feature.properties['TEMP'] <= 29.600000 ) {
+                return {
+                pane: 'pane_Temprepro_2',
+                opacity: 1,
+                color: 'rgba(35,251,244,0.7)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,0.7)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['TEMP'] >= 29.600000 && feature.properties['TEMP'] <= 31.600000 ) {
+                return {
+                pane: 'pane_Temprepro_2',
+                opacity: 1,
+                color: 'rgba(35,251,244,0.7)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,0.7)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['TEMP'] >= 31.600000 && feature.properties['TEMP'] <= 35.400000 ) {
+                return {
+                pane: 'pane_Temprepro_2',
+                opacity: 1,
+                color: 'rgba(35,251,244,0.7)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,0.7)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Temprepro_2');
+        map.getPane('pane_Temprepro_2').style.zIndex = 402;
+        map.getPane('pane_Temprepro_2').style['mix-blend-mode'] = 'normal';
+        var layer_Temprepro_2 = new L.geoJson(json_Temprepro_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Temprepro_2',
+            layerName: 'layer_Temprepro_2',
+            pane: 'pane_Temprepro_2',
+            onEachFeature: pop_Temprepro_2,
+            style: style_Temprepro_2_0,
+        });
+        bounds_group.addLayer(layer_Temprepro_2);
+        map.addLayer(layer_Temprepro_2);
+        function pop_pop2020Homens_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Pop</th>\
+                        <td>' + (feature.properties['VALUE'] !== null ? autolinker.link(feature.properties['VALUE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_pop2020Homens_3_0(feature) {
+            if (feature.properties['VALUE'] >= 0.120356 && feature.properties['VALUE'] <= 2.948638 ) {
+                return {
+                pane: 'pane_pop2020Homens_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(43,131,186,0.6)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['VALUE'] >= 2.948638 && feature.properties['VALUE'] <= 6.943889 ) {
+                return {
+                pane: 'pane_pop2020Homens_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,221,164,0.6)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['VALUE'] >= 6.943889 && feature.properties['VALUE'] <= 13.388172 ) {
+                return {
+                pane: 'pane_pop2020Homens_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,191,0.6)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['VALUE'] >= 13.388172 && feature.properties['VALUE'] <= 39.114136 ) {
+                return {
+                pane: 'pane_pop2020Homens_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,174,97,0.6)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['VALUE'] >= 39.114136 && feature.properties['VALUE'] <= 428.054688 ) {
+                return {
+                pane: 'pane_pop2020Homens_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,25,28,0.6)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_pop2020Homens_3');
+        map.getPane('pane_pop2020Homens_3').style.zIndex = 403;
+        map.getPane('pane_pop2020Homens_3').style['mix-blend-mode'] = 'normal';
+        var layer_pop2020Homens_3 = new L.geoJson(json_pop2020Homens_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_pop2020Homens_3',
+            layerName: 'layer_pop2020Homens_3',
+            pane: 'pane_pop2020Homens_3',
+            onEachFeature: pop_pop2020Homens_3,
+            style: style_pop2020Homens_3_0,
+        });
+        bounds_group.addLayer(layer_pop2020Homens_3);
+        map.addLayer(layer_pop2020Homens_3);
+        function pop_Feira_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>UF</strong><br />' + (feature.properties['SIGLA_UF'] !== null ? autolinker.link(feature.properties['SIGLA_UF'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Município</strong><br />' + (feature.properties['NM_MUN'] !== null ? autolinker.link(feature.properties['NM_MUN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Feira_4_0() {
+            return {
+                pane: 'pane_Feira_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,72,75,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Feira_4');
+        map.getPane('pane_Feira_4').style.zIndex = 404;
+        map.getPane('pane_Feira_4').style['mix-blend-mode'] = 'normal';
+        var layer_Feira_4 = new L.geoJson(json_Feira_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Feira_4',
+            layerName: 'layer_Feira_4',
+            pane: 'pane_Feira_4',
+            onEachFeature: pop_Feira_4,
+            style: style_Feira_4_0,
+        });
+        bounds_group.addLayer(layer_Feira_4);
+        map.addLayer(layer_Feira_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Feira_4.png" /> Feira': layer_Feira_4,'pop2020 Homens<br /><table><tr><td style="text-align: center;"><img src="legend/pop2020Homens_3_01290.png" /></td><td>0,1 - 2,9</td></tr><tr><td style="text-align: center;"><img src="legend/pop2020Homens_3_29691.png" /></td><td>2,9 - 6,9</td></tr><tr><td style="text-align: center;"><img src="legend/pop2020Homens_3_691342.png" /></td><td>6,9 - 13,4</td></tr><tr><td style="text-align: center;"><img src="legend/pop2020Homens_3_1343913.png" /></td><td>13,4 - 39,1</td></tr><tr><td style="text-align: center;"><img src="legend/pop2020Homens_3_39142814.png" /></td><td>39,1 - 428,1</td></tr></table>': layer_pop2020Homens_3,'Temp repro<br /><table><tr><td style="text-align: center;"><img src="legend/Temprepro_2_2572750.png" /></td><td>25,7 - 27,5</td></tr><tr><td style="text-align: center;"><img src="legend/Temprepro_2_2752861.png" /></td><td>27,5 - 28,6</td></tr><tr><td style="text-align: center;"><img src="legend/Temprepro_2_2862962.png" /></td><td>28,6 - 29,6</td></tr><tr><td style="text-align: center;"><img src="legend/Temprepro_2_2963163.png" /></td><td>29,6 - 31,6</td></tr><tr><td style="text-align: center;"><img src="legend/Temprepro_2_3163544.png" /></td><td>31,6 - 35,4</td></tr></table>': layer_Temprepro_2,"Google Road": layer_GoogleRoad_1,"Google Satellite": layer_GoogleSatellite_0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
